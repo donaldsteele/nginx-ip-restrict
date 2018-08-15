@@ -1,0 +1,25 @@
+[Unit]
+Description=nginx ip restrict
+After=network.target
+
+[Service]
+Type=simple
+
+Restart=on-failure
+RestartSec=10
+startLimitIntervalSec=60
+
+WorkingDirectory=/usr/local/nginx-ip-restrict/
+ExecStart=/usr/local/nginx-ip-restrict/nginx-ip-restrict
+
+# make sure log directory exists and owned by syslog
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /var/log/nginx-ip-restrict
+ExecStartPre=/bin/chown root:adm /var/log/nginx-ip-restrict
+ExecStartPre=/bin/chmod 755 /var/log/nginx-ip-restrict
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=nginx-ip-restrict
+
+[Install]
+WantedBy=multi-user.target
