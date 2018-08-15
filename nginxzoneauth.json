@@ -5,6 +5,7 @@
     "us",
     "ca"
   ],
+  "blockTor": true,
   "cacheDirectory": "./cache"
 
 }
